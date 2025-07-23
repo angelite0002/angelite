@@ -1,7 +1,15 @@
 export default defineEventHandler(async (event) => {
 	let blogFragment = getQuery(event)["blog-frag"];
 	let res = await fetch(
-		"http://localhost:8000/blogs?blogFrag=" + blogFragment?.toString()
+		useRuntimeConfig().public.BACKEND +
+			"blogs?blogFrag=" +
+			blogFragment?.toString(),
+			{
+				method: "POST",
+				headers: {
+					accept: "application/json",
+				},
+			}
 	);
 
 	let data: {

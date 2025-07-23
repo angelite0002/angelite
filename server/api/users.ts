@@ -1,6 +1,20 @@
 export default defineEventHandler(async (event) => {
+	let name = getQuery(event)["name"];
+	let token = getQuery(event)["token"];
 	try {
-		let res = await fetch("http://localhost:8000/");
+		let res = await fetch(
+			useRuntimeConfig().public.BACKEND +
+				"?name=" +
+				name +
+				"&token=" +
+				token,
+			{
+				method: "POST",
+				headers: {
+					accept: "application/json",
+				},
+			}
+		);
 		let data: {
 			users: [
 				{

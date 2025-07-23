@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
 	try {
 		let res = await fetch(
-			"http://localhost:8000/admins?adminHash=" + hash,
+			useRuntimeConfig().public.BACKEND + "admins?adminHash=" + hash,
 			{
 				method: "POST",
 				headers: {
@@ -21,10 +21,9 @@ export default defineEventHandler(async (event) => {
 				},
 			}
 		);
-		let data: { status: number; error: null; authenticated: string } =
-			await res.json();
+		let data: { token: string } = await res.json();
 		return data;
 	} catch (e) {
-		return { status: 500, error: e, authenticated: "NONE" };
+		return { token: "failed" };
 	}
 });

@@ -217,17 +217,28 @@ async function uploadBlog() {
 		month: dateNow.getMonth() + 1,
 		year: dateNow.getFullYear(),
 	};
-	let res = await $fetch("/api/blog-add", {
-		method: "POST",
-		body: JSON.stringify(data),
-	});
+	let useLoggedIn = useCookie("auth");
+	let dataSession: {
+		name: string;
+		token: string;
+	};
+	if (!useLoggedIn.value) return;
+	if (typeof useLoggedIn.value == "string")
+		dataSession = JSON.parse(useLoggedIn.value);
+	else dataSession = useLoggedIn.value;
+	let res = await $fetch(
+		"/api/blog-add?name=" +
+			dataSession.name +
+			"&token=" +
+			dataSession.token,
+		{
+			method: "POST",
+			body: JSON.stringify(data),
+		}
+	);
 	blogStatus.status = res.status;
 	blogStatus.error = res.error;
 }
-
-definePageMeta({
-	middleware: ["admin-auth"],
-});
 </script>
 
 <style>
