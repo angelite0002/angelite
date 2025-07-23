@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
 	if (blogId?.toString().length !== 24)
 		return { error: "Blog does not exist" };
 	let res = await fetch(
-		"http://localhost:8000/get-blog?id=" + blogId.toString(),
+		useRuntimeConfig().public.BACKEND + "get-blog?id=" + blogId.toString(),
 		{
 			method: "POST",
 			headers: {

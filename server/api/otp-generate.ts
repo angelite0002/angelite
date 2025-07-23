@@ -22,15 +22,15 @@ export default defineEventHandler(async (event) => {
 			otp = randomInt(1300, 9999);
 		}
 		// to jaipalbhanwariya6@gmail.com
-		// 		await transport.sendMail({
-		// 			from: useRuntimeConfig().public.EMAIL,
-		// 			to: email.toString(),
-		// 			subject: "Otp for Angelite Login/Booking",
-		// 			html: `<div style='text-align: center'>
-		// 	Otp for Angelite
-		// 	<h1>${otp}</h1>
-		// </div>`,
-		// 		});
+		await transport.sendMail({
+			from: useRuntimeConfig().public.EMAIL,
+			to: email.toString(),
+			subject: "Otp for Angelite Login/Booking",
+			html: `<div style='text-align: center'>
+			Otp for Angelite
+			<h1>${otp}</h1>
+		</div>`,
+		});
 		console.log(otp);
 	} catch (error) {
 		console.log(error);

@@ -334,23 +334,25 @@ onMounted(() => {
 
 async function loginCheck() {
 	let out = await $fetch<{
-		status: number;
-		error: Error | null;
-		authenticated: AuthType;
+		token: string;
 	}>("/api/admins", {
 		method: "POST",
 		body: JSON.stringify(loginData),
 	});
 	otpGot.value = false;
-	if (out.error) return;
+	if (out.token == "failed") return;
 	const useLoggedIn = useCookie("auth");
-	useLoggedIn.value = JSON.stringify(loginData);
+	useLoggedIn.value = JSON.stringify({
+		name: loginData.name,
+		token: out.token,
+	});
 	loggedIn.value = true;
 	otpGot.value = true;
-	if (out.authenticated != "ADMIN") {
+	if (out.token == "failed") {
 		alert("You are not an admin");
 		navigateTo("/");
 	}
+
 	navigateTo("/dashboard");
 }
 let loggedIn = ref(false);

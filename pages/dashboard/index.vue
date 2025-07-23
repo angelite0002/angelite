@@ -199,9 +199,7 @@ useHead({
 let uiOption = ref<"events" | "users">("events");
 let user = reactive({
 	name: "",
-	email: "",
-	password: "",
-	auth: "NONE",
+	token: "failed",
 });
 
 function gotoAddBlog() {
@@ -263,9 +261,7 @@ onMounted(async () => {
 	let useLoggedIn = useCookie("auth");
 	let data: {
 		name: string;
-		password: string;
-		email: string;
-		auth: AuthType;
+		token: string;
 	};
 	if (!useLoggedIn.value) return;
 	if (typeof useLoggedIn.value == "string")
@@ -288,7 +284,7 @@ onMounted(async () => {
 					}
 			  ]
 			| null;
-	}>("/api/users");
+	}>("/api/users?name=" + user.name + "&token=" + user.token);
 	if (usersData.error) {
 		error.value = usersData.error;
 		return;
@@ -311,7 +307,7 @@ onMounted(async () => {
 			"event-type": string;
 			"sub-event-type": string;
 		}> | null;
-	}>("/api/events");
+	}>("/api/events?name=" + user.name + "&token=" + user.token);
 	if (eventsData.error) {
 		error.value = eventsData.error;
 		return;
@@ -338,10 +334,6 @@ function eventIsDone(data: string): boolean {
 		return true;
 	else return false;
 }
-
-definePageMeta({
-	middleware: ["admin-auth"],
-});
 </script>
 
 <style scoped>

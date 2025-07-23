@@ -14,10 +14,18 @@ export default defineNuxtConfig({
 			EMAIL: process.env.EMAIL,
 			EMAIL_TOKEN: process.env.EMAIL_TOKEN,
 			FEEDBACK_RECIEVER: process.env.FEEDBACK_RECIEVER,
+			BACKEND: process.env.BACKEND,
 		},
 	},
 	imports: {
 		autoImport: true,
+	},
+	routeRules: {
+		"/": { prerender: true },
+		"/feedback": { prerender: true },
+		"/gallary": { prerender: true },
+		"/blogs": { prerender: true },
+		"/about": { prerender: true },
 	},
 	app: {
 		head: {
