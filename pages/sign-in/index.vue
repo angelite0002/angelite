@@ -315,7 +315,7 @@ import type { VNodeRef } from "vue";
 import { UModal } from "#components";
 
 useHead({
-	title: "Angelite - Sign In",
+	title: "Angelite - Sign Up and Login",
 });
 
 let items = ["sign-up", "login"];
@@ -324,7 +324,6 @@ let screenSize = reactive({
 	width: 0,
 	height: 0,
 });
-
 onMounted(() => {
 	if (visualViewport) {
 		screenSize.height = visualViewport.height;

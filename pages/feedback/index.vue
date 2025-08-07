@@ -44,7 +44,12 @@
 </template>
 
 <script lang="ts">
-import { assertNuxtCompatibility } from "nuxt/kit";
+useHead({
+	title: "Send us your feedback",
+});
+useSeoMeta({
+	title: "Send us your feedback",
+});
 
 export default {
 	data() {

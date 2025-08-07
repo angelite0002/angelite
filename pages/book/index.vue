@@ -216,6 +216,10 @@ import type { VNodeRef } from "vue";
 useHead({
 	title: "Angelite - Book Event",
 });
+useSeoMeta({
+	title: "Angelite - Book Event",
+	description: "Book your events",
+});
 
 function otpSubmit() {
 	let data = {

@@ -75,6 +75,12 @@ const images = ref([
 	bDay2,
 	rowdyMomo,
 ]);
+useHead({
+	title: "Angelite gallery",
+});
+useSeoMeta({
+	title: "Angelite gallery",
+});
 
 let screenSize = reactive({
 	width: 0,

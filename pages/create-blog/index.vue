@@ -226,7 +226,7 @@ async function uploadBlog() {
 	if (typeof useLoggedIn.value == "string")
 		dataSession = JSON.parse(useLoggedIn.value);
 	else dataSession = useLoggedIn.value;
-	let res = await $fetch(
+	let res: { status: number; error: string } = await $fetch(
 		"/api/blog-add?name=" +
 			dataSession.name +
 			"&token=" +
