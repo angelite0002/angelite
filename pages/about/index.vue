@@ -71,6 +71,11 @@
 useHead({
 	title: "Angelite - About Us",
 });
+useSeoMeta({
+	title: "Angelite - About Us",
+	description: "A more detailed description about us",
+});
+
 import logo from "~/assets/img/angelite-logo.jpg";
 </script>
 <style scoped>

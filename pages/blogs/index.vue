@@ -86,6 +86,10 @@ onMounted(() => {
 useHead({
 	title: "Blogs",
 });
+useSeoMeta({
+	title: "Blogs",
+	description: "Blogs uploaded by angelite admins",
+});
 
 async function loadBlogs() {
 	let data = await $fetch<

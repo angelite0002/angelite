@@ -1,26 +1,13 @@
 <template>
 	<div
-		:class="'h-full min-h-[100vh] ' +
+		:class="
+			'h-full min-h-[100vh] ' +
 			(screenSize.width < 1200 ? 'flex flex-col' : 'grid grid-cols-2')
 		"
 		id="home"
 	>
 		<div v-if="screenSize.width < 1200" class="w-full">
 			<header class="w-full" id="header-mobile">
-				<NuxtLink to="/dashboard" v-if="adminData.auth == 'ADMIN'">
-					<img
-						v-if="screenSize.width < 600"
-						src="~/assets/img/angelite-nobg.png"
-						:class="`w-auto h-[20vh]`"
-						id="navbar-logo"
-					/>
-					<img
-						src="~/assets/img/angelite-nobg.png"
-						v-else
-						class="w-[20vw]"
-						id="navbar-logo"
-					/>
-				</NuxtLink>
 				<template v-if="screenSize.width < 600">
 					<img
 						src="~/assets/img/angelite-nobg.png"
@@ -123,18 +110,10 @@
 		</div>
 		<template v-else>
 			<header id="landing-part-1">
-				<NuxtLink to="/dashboard" v-if="adminData.auth == 'ADMIN'">
-					<img
-						src="~/assets/img/angelite-nobg.png"
-						class="w-40 h-auto"
-						id="navbar-logo"
-					/>
-				</NuxtLink>
 				<img
 					src="~/assets/img/angelite-nobg.png"
 					class="w-40 h-auto"
 					id="navbar-logo"
-					v-else
 				/>
 				<div
 					class="flex items-end justify-center w-3/4 px-20 mt-52"
@@ -223,39 +202,21 @@ let screenSize = reactive({
 	height: 0,
 });
 
-let adminData = reactive({
-	name: "",
-	email: "",
-	password: "",
-	auth: "NONE",
-});
-
 let btn: Button = {
 	// @ts-ignore
 	color: "transparent",
 };
-
+useSeoMeta({
+	title: "Angelite event management",
+	description:
+		"Angelite – Crafted with Heart, Celebrated with Soul\nEvery event is more than a date on the calendar — it’s a feeling, a story, a memory in the making.\nAt Angelite, we don’t just plan events — we pour our heart into them, with love, passion, and attention to every little detail.",
+	author: "ankesh",
+});
 onMounted(() => {
 	if (visualViewport) {
 		screenSize.height = visualViewport.height;
 		screenSize.width = visualViewport.width;
 	}
-	let useLoggedIn = useCookie("auth");
-	if (!useLoggedIn.value) {
-		adminData.auth = "NONE";
-		return;
-	}
-
-	let data: {
-		name: string;
-		password: string;
-		email: string;
-		auth: AuthType;
-	};
-	if (typeof useLoggedIn.value === "string")
-		data = JSON.parse(useLoggedIn.value);
-	else data = useLoggedIn.value;
-	adminData = data;
 });
 
 let carouselRef = ref<typeof UCarousel | null>(null);
